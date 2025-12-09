@@ -1,0 +1,12 @@
+body:
+  - type: dropdown
+    attributes:
+      name: default_language
+      label: Default search language
+      defaultValue: Turkish-English
+      options:
+        - Turkish-English
+        - French-English
+        - Spanish-English
+        - German-English
+
