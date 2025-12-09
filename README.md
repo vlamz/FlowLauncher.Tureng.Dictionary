@@ -1,6 +1,6 @@
 # Tureng Dictionary - FlowLauncher Plugin
 
-**FlowLauncher plugin for searching words in Tureng dictionary and opening results in browser.**
+**An unofficial FlowLauncher plugin to easily access Tureng Dictionary.**
 
 > Search words quickly in Tureng dictionary and view results in your browser.  
 > - Multi-language support (Turkish-English, French-English, Spanish-English, German-English)  
@@ -399,4 +399,5 @@ For issues or suggestions, please use the [GitHub Issues](https://github.com/vla
 <a href="https://patreon.com/Vlamz?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink" target="_blank"><img src="https://img.shields.io/badge/Patreon-F96854?style=for-the-badge&logo=patreon&logoColor=white" alt="Support me on Patreon"></a>
 
 ⭐ If you like this project, don't forget to give it a star!
+
 
