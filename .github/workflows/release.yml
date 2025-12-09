@@ -70,6 +70,5 @@ jobs:
             - Multi-language support (Turkish-English, French-English, Spanish-English, German-English)
             - Default language settings
             - Context menu with alternative language options
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
