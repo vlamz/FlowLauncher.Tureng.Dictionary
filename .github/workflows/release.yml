@@ -1,0 +1,72 @@
+name: Build and Release Plugin
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies (if any)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      - name: Build plugin package
+        run: |
+          # Remove version tag prefix (v1.0.0 -> 1.0.0)
+          VERSION=${GITHUB_REF_NAME#v}
+          ZIP_NAME="Tureng.Dictionary-${VERSION}.zip"
+          
+          # Create ZIP file excluding unnecessary files
+          # Exclude git files, workflow files, and temporary files
+          zip -r "${ZIP_NAME}" . \
+            -x "*.git/*" \
+            -x ".github/*" \
+            -x "*.zip" \
+            -x "*PLUGIN_STORE_GUIDE.md" \
+            -x "*PR_*.md" \
+            -x "*PR_*.json" \
+            -x "*.pyc" \
+            -x "__pycache__/*" \
+            -x ".DS_Store"
+          
+          echo "ZIP_NAME=${ZIP_NAME}" >> $GITHUB_ENV
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.ZIP_NAME }}
+          tag_name: ${{ github.ref_name }}
+          name: Tureng Dictionary-${{ env.VERSION }}
+          body: |
+            ## Tureng Dictionary Plugin Release
+            
+            Version: ${{ env.VERSION }}
+            
+            ### Installation
+            1. Download the ZIP file
+            2. Extract it to FlowLauncher's plugin directory
+            3. Restart FlowLauncher
+            
+            ### Features
+            - Multi-language support (Turkish-English, French-English, Spanish-English, German-English)
+            - Default language settings
+            - Context menu with alternative language options
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
